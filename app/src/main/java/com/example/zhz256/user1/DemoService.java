@@ -17,13 +17,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DemoService extends Service {
-    private static ArrayList<String> list = new ArrayList<String>(Arrays.asList("Hello", "from", "User", "1", "Josh"));
-    static int counter=0;
+    private ArrayList<String> list = new ArrayList<String>(Arrays.asList("Hello", "from", "User", "1", "Josh"));
+    int counter=0;
     Thread thread;
+    boolean stop=false;
     public DemoService() {
     }
 
-    public static String getWord(){
+    public String getWord(){
         return list.get((counter++)%5);
     }
 
@@ -37,9 +38,10 @@ public class DemoService extends Service {
         @Override
         public void run(){
             mref2 = new Firebase("https://zhili-110.firebaseio.com/second");
+            mref2.setValue(null);
             synchronized (this){
                 try {
-                    while(true){
+                    while(!stop){
                         mref2.setValue(getWord());
                         wait(3000);
                     }
@@ -66,7 +68,7 @@ public class DemoService extends Service {
 
     @Override
     public void onDestroy(){
-        stopSelf((int) thread.getId());
+        stop=true;
         Toast.makeText(DemoService.this, "Service stopped", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
