@@ -1,5 +1,7 @@
 package com.example.zhz256.user1;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,10 +20,13 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
-    Firebase mref;
+    Firebase mref1;
     TextView textView;
-    Button b1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,41 +43,42 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        Intent intent = new Intent(MainActivity.this, DemoService.class);
+        startService(intent);
+    }
+
+    /*
+    public void starter(View view){
+        Intent intent = new Intent(MainActivity.this, DemoService.class);
+        startService(intent);
+    }*/
+
+    public void stopper(View view){
+        Intent intent = new Intent(MainActivity.this, DemoService.class);
+        stopService(intent);
     }
 
 
-    protected void onStart(){
 
+    protected void onStart(){
         super.onStart();
         textView = (TextView)findViewById(R.id.textView2);
-        b1 = (Button)findViewById(R.id.sunny_but);
 
-        mref = new Firebase("https://zhili-110.firebaseio.com/first");
-        mref.addValueEventListener(new ValueEventListener() {
+        mref1 = new Firebase("https://zhili-110.firebaseio.com/first");
+        mref1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String data = dataSnapshot.getValue(String.class);
                 textView.setText(data);
                 Toast.makeText(getBaseContext(), data, Toast.LENGTH_LONG).show();
             }
-
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });
-        b1.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                mref = new Firebase("https://zhili-110.firebaseio.com/second");
-                EditText editText = (EditText)findViewById(R.id.editText);
-                String edit = editText.getText().toString();
-                mref.setValue(edit);
-            }
-        });
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

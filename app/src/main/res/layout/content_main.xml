@@ -12,33 +12,31 @@
     tools:context="com.example.zhz256.user1.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:layout_marginBottom="29dp"
-        android:layout_above="@+id/sunny_but"
-        android:layout_alignStart="@+id/sunny_but"
-        android:layout_toStartOf="@+id/textView2"
-        android:text="Name"
-        android:layout_alignEnd="@+id/textView2" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="send"
-        android:id="@+id/sunny_but"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="22dp" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Message"
         android:id="@+id/textView2"
-        android:layout_marginBottom="27dp"
-        android:layout_above="@+id/editText"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="93dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="start"
+        android:id="@+id/start"
+        android:layout_below="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginTop="85dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="stop"
+        android:id="@+id/stop"
+        android:layout_below="@+id/start"
+        android:layout_alignStart="@+id/start"
+        android:onClick="stopper" />
 </RelativeLayout>
